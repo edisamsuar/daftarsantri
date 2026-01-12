@@ -484,23 +484,13 @@
                     </div>
                 </div>
                 
-                <!-- Baris 9: Nomor WhatsApp dan Email -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="whatsapp" class="required">
-                            <i class="fab fa-whatsapp field-icon"></i>Nomor WhatsApp Aktif
-                        </label>
-                        <input type="text" id="whatsapp" name="entry.751292967" placeholder="Contoh: 081234567890" required>
-                        <div class="validation-message" id="whatsappValidation">Nomor WhatsApp harus diisi (minimal 10 digit)</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">
-                            <i class="fas fa-envelope field-icon"></i>Email Aktif
-                        </label>
-                        <input type="email" id="email" name="entry.1069736627" placeholder="opsional: contoh@email.com">
-                        <div class="validation-message" id="emailValidation">Format email tidak valid</div>
-                    </div>
+                <!-- Baris 9: Nomor WhatsApp -->
+                <div class="form-group">
+                    <label for="whatsapp" class="required">
+                        <i class="fab fa-whatsapp field-icon"></i>Nomor WhatsApp Aktif
+                    </label>
+                    <input type="text" id="whatsapp" name="entry.751292967" placeholder="Contoh: 081234567890" required>
+                    <div class="validation-message" id="whatsappValidation">Nomor WhatsApp harus diisi (minimal 10 digit)</div>
                 </div>
                 
                 <!-- Button Submit -->
@@ -680,16 +670,6 @@
                     isValid = false;
                 }
                 
-                // Validasi email (opsional, tapi jika diisi harus valid)
-                const email = document.getElementById('email').value.trim();
-                if (email) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(email)) {
-                        document.getElementById('emailValidation').classList.add('show');
-                        isValid = false;
-                    }
-                }
-                
                 return isValid;
             }
             
@@ -729,8 +709,7 @@
                     'entry.789339613': document.getElementById('jenjangDituju').value,
                     'entry.564559975': document.getElementById('namaAyah').value.trim(),
                     'entry.759597115': document.getElementById('namaIbu').value.trim(),
-                    'entry.751292967': document.getElementById('whatsapp').value.trim(),
-                    'entry.1069736627': document.getElementById('email').value.trim() || ''
+                    'entry.751292967': document.getElementById('whatsapp').value.trim()
                 };
                 
                 // Buat URL dengan parameter untuk Google Form
@@ -747,8 +726,7 @@
                     `entry.789339613=${encodeURIComponent(formData['entry.789339613'])}&` +
                     `entry.564559975=${encodeURIComponent(formData['entry.564559975'])}&` +
                     `entry.759597115=${encodeURIComponent(formData['entry.759597115'])}&` +
-                    `entry.751292967=${encodeURIComponent(formData['entry.751292967'])}&` +
-                    `entry.1069736627=${encodeURIComponent(formData['entry.1069736627'])}`;
+                    `entry.751292967=${encodeURIComponent(formData['entry.751292967'])}`;
                 
                 // Simpan data ke localStorage sebagai backup
                 const submissions = JSON.parse(localStorage.getItem('dayahSubmissions') || '[]');
@@ -849,21 +827,7 @@
                     validationMsg.classList.remove('show');
                 }
             });
-            
-            // Tambahkan validasi real-time untuk email
-            document.getElementById('email').addEventListener('input', function() {
-                const emailValue = this.value.trim();
-                const validationMsg = document.getElementById('emailValidation');
-                
-                if (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-                    validationMsg.textContent = 'Format email tidak valid';
-                    validationMsg.classList.remove('show');
-                } else {
-                    validationMsg.classList.remove('show');
-                }
-            });
         });
     </script>
 </body>
-
 </html>
